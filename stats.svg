@@ -1,29 +1,28 @@
 <svg
         xmlns="http://www.w3.org/2000/svg"
         width="1200"
-        height="180"
-        viewBox="0 0 1200 180"
+        height="300"
+        viewBox="0 0 1200 300"
     >
 
         <!-- Background -->
 
         <rect
             width="1200"
-            height="180"
-            rx="8"
+            height="300"
+            rx="10"
             fill="#0D1117"
         />
-
 
         <!-- Top accent -->
 
         <line
-            x1="40"
-            y1="12"
-            x2="1160"
-            y2="12"
+            x1="50"
+            y1="20"
+            x2="1150"
+            y2="20"
             stroke="#22D3EE"
-            stroke-width="2"
+            stroke-width="3"
         />
 
 
@@ -34,22 +33,22 @@
         
     <text
         x="200.0"
-        y="78"
+        y="125"
         fill="#F0F6FC"
         font-family="monospace"
-        font-size="38px"
+        font-size="64px"
         font-weight="bold"
         text-anchor="middle"
-    >195</text>
+    >196</text>
     
 
         
     <text
         x="200.0"
-        y="112"
+        y="170"
         fill="#22D3EE"
         font-family="monospace"
-        font-size="15px"
+        font-size="20px"
         font-weight="bold"
         text-anchor="middle"
     >TOTAL CONTRIBUTIONS</text>
@@ -63,10 +62,10 @@
         
     <text
         x="600.0"
-        y="78"
+        y="125"
         fill="#F0F6FC"
         font-family="monospace"
-        font-size="38px"
+        font-size="64px"
         font-weight="bold"
         text-anchor="middle"
     >1</text>
@@ -75,10 +74,10 @@
         
     <text
         x="600.0"
-        y="112"
+        y="170"
         fill="#10B981"
         font-family="monospace"
-        font-size="15px"
+        font-size="20px"
         font-weight="bold"
         text-anchor="middle"
     >CURRENT STREAK</text>
@@ -92,10 +91,10 @@
         
     <text
         x="1000.0"
-        y="78"
+        y="125"
         fill="#F0F6FC"
         font-family="monospace"
-        font-size="38px"
+        font-size="64px"
         font-weight="bold"
         text-anchor="middle"
     >6</text>
@@ -104,44 +103,44 @@
         
     <text
         x="1000.0"
-        y="112"
+        y="170"
         fill="#A78BFA"
         font-family="monospace"
-        font-size="15px"
+        font-size="20px"
         font-weight="bold"
         text-anchor="middle"
     >LONGEST STREAK</text>
     
 
 
-        <!-- Dividers -->
+        <!-- Vertical dividers -->
 
         <line
             x1="400.0"
-            y1="42"
+            y1="55"
             x2="400.0"
-            y2="135"
+            y2="205"
             stroke="#30363D"
             stroke-width="2"
         />
 
         <line
             x1="800.0"
-            y1="42"
+            y1="55"
             x2="800.0"
-            y2="135"
+            y2="205"
             stroke="#30363D"
             stroke-width="2"
         />
 
 
-        <!-- Bottom accent -->
+        <!-- Bottom divider -->
 
         <line
-            x1="40"
-            y1="150"
-            x2="1160"
-            y2="150"
+            x1="50"
+            y1="220"
+            x2="1150"
+            y2="220"
             stroke="#30363D"
             stroke-width="2"
         />
@@ -152,10 +151,10 @@
         
     <text
         x="600.0"
-        y="172"
+        y="260"
         fill="#8B949E"
         font-family="monospace"
-        font-size="11px"
+        font-size="14px"
         font-weight="normal"
         text-anchor="middle"
     >@NNAvadeep05 • CONTRIBUTION.STATS</text>
