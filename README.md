@@ -23,7 +23,7 @@
 
 <br>
 
-<h2 align="center">SOCIALS.MAP</h2>
+<h2 align="center">SOCIALS</h2>
 
 <p align="center">
   <a href="mailto:navadeepnandedapu@gmail.com">
