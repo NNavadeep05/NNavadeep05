@@ -42,11 +42,3 @@
     🌐 Portfolio
   </a>
 </p>
-
-<br>
-
-<p align="center">
-  <a href="https://github.com/NNavadeep05/NNavadeep05/new/main">
-    <strong>＋</strong>
-  </a>
-</p>
