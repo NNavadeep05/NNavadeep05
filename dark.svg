@@ -29,30 +29,9 @@
             fill="#161B22"
         />
 
-        <!-- Terminal buttons -->
-
-        <circle
-            cx="55"
-            cy="52"
-            r="8"
-            fill="#F85149"
-        />
-
-        <circle
-            cx="80"
-            cy="52"
-            r="8"
-            fill="#F59E0B"
-        />
-
-        <circle
-            cx="105"
-            cy="52"
-            r="8"
-            fill="#10B981"
-        />
-
-        <!-- Terminal title -->
+        <circle cx="55" cy="52" r="8" fill="#F85149" />
+        <circle cx="80" cy="52" r="8" fill="#F59E0B" />
+        <circle cx="105" cy="52" r="8" fill="#10B981" />
 
         
         <text
@@ -60,7 +39,7 @@
             y="59"
             fill="#22D3EE"
             font-family="monospace"
-            font-size="18"
+            font-size="22px"
             font-weight="bold"
             text-anchor="start"
         >profile.sh --live</text>
@@ -82,9 +61,6 @@
             stroke-width="2"
         />
 
-
-        <!-- VISUAL.MAP label -->
-
         <rect
             x="55"
             y="101"
@@ -99,7 +75,7 @@
             y="118"
             fill="#22D3EE"
             font-family="monospace"
-            font-size="15"
+            font-size="17px"
             font-weight="bold"
             text-anchor="start"
         >VISUAL.MAP</text>
@@ -135,9 +111,6 @@
             stroke-width="2"
         />
 
-
-        <!-- SYSTEM.INFO label -->
-
         <rect
             x="575"
             y="101"
@@ -152,7 +125,7 @@
             y="118"
             fill="#22D3EE"
             font-family="monospace"
-            font-size="15"
+            font-size="17px"
             font-weight="bold"
             text-anchor="start"
         >SYSTEM.INFO</text>
@@ -166,19 +139,19 @@
         <rect
             x="585"
             y="145"
-            width="190"
-            height="32"
-            rx="16"
+            width="210"
+            height="40"
+            rx="20"
             fill="#10B981"
         />
 
         
         <text
-            x="680"
-            y="166"
+            x="690"
+            y="171"
             fill="#07130F"
             font-family="monospace"
-            font-size="14"
+            font-size="17px"
             font-weight="bold"
             text-anchor="middle"
         >@NNAvadeep05</text>
@@ -186,23 +159,23 @@
 
 
         <!-- ================================================= -->
-        <!-- LIVE INDICATOR                                   -->
+        <!-- LIVE                                             -->
         <!-- ================================================= -->
 
         <circle
-            cx="810"
-            cy="161"
-            r="6"
+            cx="830"
+            cy="165"
+            r="8"
             fill="#F85149"
         />
 
         
         <text
-            x="825"
-            y="166"
+            x="850"
+            y="171"
             fill="#F85149"
             font-family="monospace"
-            font-size="13"
+            font-size="16px"
             font-weight="bold"
             text-anchor="start"
         >LIVE</text>
@@ -216,10 +189,10 @@
         
         <text
             x="585"
-            y="215"
+            y="220"
             fill="#F0F6FC"
             font-family="monospace"
-            font-size="15"
+            font-size="20px"
             font-weight="normal"
             text-anchor="start"
         >Subject ......................... Navadeep Nandedapu</text>
@@ -228,10 +201,10 @@
         
         <text
             x="585"
-            y="250"
+            y="258"
             fill="#F0F6FC"
             font-family="monospace"
-            font-size="15"
+            font-size="20px"
             font-weight="normal"
             text-anchor="start"
         >Domain .......................... AI / ML / Data</text>
@@ -240,10 +213,10 @@
         
         <text
             x="585"
-            y="285"
+            y="296"
             fill="#F0F6FC"
             font-family="monospace"
-            font-size="15"
+            font-size="20px"
             font-weight="normal"
             text-anchor="start"
         >Origin .......................... Hyderabad, India</text>
@@ -252,10 +225,10 @@
         
         <text
             x="585"
-            y="320"
+            y="334"
             fill="#F0F6FC"
             font-family="monospace"
-            font-size="15"
+            font-size="20px"
             font-weight="normal"
             text-anchor="start"
         >Education ....................... Pursuing Bachelor's at IIT Kharagpur</text>
@@ -264,10 +237,10 @@
         
         <text
             x="585"
-            y="355"
+            y="372"
             fill="#A78BFA"
             font-family="monospace"
-            font-size="15"
+            font-size="20px"
             font-weight="bold"
             text-anchor="start"
         >Status .......................... Delusional</text>
@@ -281,10 +254,10 @@
         
         <text
             x="585"
-            y="405"
+            y="425"
             fill="#F0F6FC"
             font-family="monospace"
-            font-size="15"
+            font-size="20px"
             font-weight="normal"
             text-anchor="start"
         >Focus ........................... AI Systems</text>
@@ -293,10 +266,10 @@
         
         <text
             x="585"
-            y="440"
+            y="463"
             fill="#F0F6FC"
             font-family="monospace"
-            font-size="15"
+            font-size="20px"
             font-weight="normal"
             text-anchor="start"
         >Stack ........................... C / C++ / Python / SQL</text>
@@ -305,10 +278,10 @@
         
         <text
             x="585"
-            y="475"
+            y="501"
             fill="#F0F6FC"
             font-family="monospace"
-            font-size="15"
+            font-size="20px"
             font-weight="normal"
             text-anchor="start"
         >Currently ....................... Building + Researching</text>
@@ -316,26 +289,26 @@
 
 
         <!-- ================================================= -->
-        <!-- CURRENTLY SECTION                                -->
+        <!-- CURRENTLY                                        -->
         <!-- ================================================= -->
 
         
         <text
             x="585"
-            y="515"
+            y="545"
             fill="#22D3EE"
             font-family="monospace"
-            font-size="14"
+            font-size="18px"
             font-weight="bold"
             text-anchor="start"
         >CURRENTLY</text>
     
 
         <line
-            x1="680"
-            y1="510"
-            x2="1290"
-            y2="510"
+            x1="690"
+            y1="539"
+            x2="1295"
+            y2="539"
             stroke="#22D3EE"
             stroke-width="2"
         />
@@ -343,10 +316,10 @@
         
         <text
             x="585"
-            y="550"
+            y="580"
             fill="#F0F6FC"
             font-family="monospace"
-            font-size="14"
+            font-size="18px"
             font-weight="normal"
             text-anchor="start"
         >Research ........................ Quantum Machine Learning</text>
@@ -355,10 +328,10 @@
         
         <text
             x="585"
-            y="580"
+            y="608"
             fill="#F0F6FC"
             font-family="monospace"
-            font-size="14"
+            font-size="18px"
             font-weight="normal"
             text-anchor="start"
         >Building ........................ AI / Data Projects</text>
