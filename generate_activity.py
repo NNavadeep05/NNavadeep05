@@ -43,6 +43,7 @@ def get_activity_data():
     query = """
     query($login: String!, $from: DateTime!, $to: DateTime!) {
         user(login: $login) {
+
             contributionsCollection(
                 from: $from
                 to: $to
@@ -53,14 +54,11 @@ def get_activity_data():
                 totalPullRequestReviewContributions
             }
 
-            repositories(
-                first: 20
-                ownerAffiliations: OWNER, COLLABORATOR, ORGANIZATION_MEMBER
-                privacy: PUBLIC
-            ) {
+            repositories(first: 20) {
                 nodes {
                     nameWithOwner
                     isFork
+                    isPrivate
                 }
             }
         }
@@ -72,8 +70,12 @@ def get_activity_data():
 
     variables = {
         "login": USERNAME,
-        "from": start.strftime("%Y-%m-%dT00:00:00Z"),
-        "to": now.strftime("%Y-%m-%dT23:59:59Z"),
+        "from": start.strftime(
+            "%Y-%m-%dT00:00:00Z"
+        ),
+        "to": now.strftime(
+            "%Y-%m-%dT23:59:59Z"
+        ),
     }
 
     payload = json.dumps({
@@ -87,17 +89,19 @@ def get_activity_data():
         headers={
             "Authorization": f"bearer {token}",
             "Content-Type": "application/json",
-            "User-Agent": "github-profile-activity"
+            "User-Agent": "github-profile-activity",
         },
-        method="POST"
+        method="POST",
     )
 
     with urllib.request.urlopen(request) as response:
+
         data = json.loads(
             response.read().decode("utf-8")
         )
 
     if "errors" in data:
+
         raise RuntimeError(
             json.dumps(
                 data["errors"],
@@ -119,10 +123,10 @@ def text(
     size,
     color,
     weight="normal",
-    anchor="start"
+    anchor="start",
 ):
 
-    return f'''
+    return f"""
         <text
             x="{x}"
             y="{y}"
@@ -132,7 +136,7 @@ def text(
             font-weight="{weight}"
             text-anchor="{anchor}"
         >{value}</text>
-    '''
+    """
 
 
 # ============================================================
@@ -141,7 +145,9 @@ def text(
 
 def generate_activity(user):
 
-    contributions = user["contributionsCollection"]
+    contributions = user[
+        "contributionsCollection"
+    ]
 
     commits = contributions[
         "totalCommitContributions"
@@ -160,6 +166,10 @@ def generate_activity(user):
     ]
 
 
+    # --------------------------------------------------------
+    # Repository list
+    # --------------------------------------------------------
+
     repositories = []
 
     for repo in user["repositories"]["nodes"]:
@@ -170,34 +180,33 @@ def generate_activity(user):
         if repo["isFork"]:
             continue
 
+        if repo["isPrivate"]:
+            continue
+
         repositories.append(
             repo["nameWithOwner"]
         )
 
-
-    repositories = repositories[:8]
+    repositories = repositories[:7]
 
     if not repositories:
+
         repositories = [
-            "No public repository activity found"
+            "No public repositories found"
         ]
 
 
     # ========================================================
-    # SVG
+    # SVG START
     # ========================================================
 
-    svg = f'''
+    svg = f"""
     <svg
         xmlns="http://www.w3.org/2000/svg"
         width="{WIDTH}"
         height="{HEIGHT}"
         viewBox="0 0 {WIDTH} {HEIGHT}"
     >
-
-        <!-- ================================================= -->
-        <!-- BACKGROUND                                        -->
-        <!-- ================================================= -->
 
         <rect
             x="0"
@@ -208,11 +217,6 @@ def generate_activity(user):
             fill="{BG}"
         />
 
-
-        <!-- ================================================= -->
-        <!-- TITLE                                             -->
-        <!-- ================================================= -->
-
         {text(
             55,
             48,
@@ -221,11 +225,6 @@ def generate_activity(user):
             TEXT,
             "bold"
         )}
-
-
-        <!-- ================================================= -->
-        <!-- MAIN DIVIDER                                     -->
-        <!-- ================================================= -->
 
         <line
             x1="45"
@@ -236,24 +235,17 @@ def generate_activity(user):
             stroke-width="2"
         />
 
-
-        <!-- ================================================= -->
-        <!-- LEFT / RIGHT DIVIDER                             -->
-        <!-- ================================================= -->
-
         <line
             x1="700"
             y1="95"
             x2="700"
-            y2="360"
+            y2="370"
             stroke="{BORDER}"
             stroke-width="2"
         />
 
 
-        <!-- ================================================= -->
-        <!-- LEFT: CONTRIBUTED TO                             -->
-        <!-- ================================================= -->
+        <!-- LEFT SIDE -->
 
         {text(
             70,
@@ -263,13 +255,12 @@ def generate_activity(user):
             CYAN,
             "bold"
         )}
+    """
 
-    '''
 
-
-    # --------------------------------------------------------
-    # Repository list
-    # --------------------------------------------------------
+    # ========================================================
+    # REPOSITORIES
+    # ========================================================
 
     y = 150
 
@@ -277,25 +268,25 @@ def generate_activity(user):
 
         display_name = repo
 
-        if len(display_name) > 46:
+        if len(display_name) > 48:
 
             display_name = (
-                display_name[:43] +
-                "..."
+                display_name[:45]
+                + "..."
             )
 
         svg += text(
             90,
             y,
             "• " + display_name,
-            17,
+            16,
             TEXT
         )
 
         y += 32
 
 
-    if len(repositories) >= 8:
+    if len(repositories) >= 7:
 
         svg += text(
             90,
@@ -307,7 +298,7 @@ def generate_activity(user):
 
 
     # ========================================================
-    # RIGHT: CONTRIBUTION BREAKDOWN
+    # RIGHT SIDE
     # ========================================================
 
     svg += text(
@@ -321,18 +312,16 @@ def generate_activity(user):
 
 
     # --------------------------------------------------------
-    # Radar-like graphic
+    # Radar-style visual
     # --------------------------------------------------------
 
     center_x = 1035
-    center_y = 235
+    center_y = 225
 
-    radius_x = 130
+    radius_x = 135
     radius_y = 105
 
-    # axes
-
-    svg += f'''
+    svg += f"""
         <line
             x1="{center_x - radius_x}"
             y1="{center_y}"
@@ -354,57 +343,27 @@ def generate_activity(user):
         <circle
             cx="{center_x}"
             cy="{center_y}"
-            r="5"
+            r="6"
             fill="{GREEN}"
         />
-    '''
+    """
 
 
     # --------------------------------------------------------
-    # Contribution values
+    # Labels
     # --------------------------------------------------------
-
-    total_actions = (
-        commits +
-        pull_requests +
-        issues +
-        reviews
-    )
-
-    if total_actions == 0:
-        total_actions = 1
-
-
-    # Percentages relative to total
-    commit_pct = round(
-        commits / total_actions * 100
-    )
-
-    review_pct = round(
-        reviews / total_actions * 100
-    )
-
-    issue_pct = round(
-        issues / total_actions * 100
-    )
-
-    pr_pct = round(
-        pull_requests / total_actions * 100
-    )
-
 
     svg += text(
-        center_x - radius_x - 20,
-        center_y + 5,
-        f"{commit_pct}%\\n",
+        center_x,
+        center_y - radius_y - 15,
+        "Code review",
         14,
         MUTED,
-        "bold",
-        "end"
+        anchor="middle"
     )
 
     svg += text(
-        center_x + radius_x + 20,
+        center_x + radius_x + 15,
         center_y + 5,
         "Issues",
         14,
@@ -413,32 +372,30 @@ def generate_activity(user):
 
     svg += text(
         center_x,
-        center_y - radius_y - 12,
-        "Code review",
-        14,
-        MUTED,
-        "normal",
-        "middle"
-    )
-
-    svg += text(
-        center_x,
-        center_y + radius_y + 25,
+        center_y + radius_y + 28,
         "Pull requests",
         14,
         MUTED,
-        "normal",
-        "middle"
+        anchor="middle"
+    )
+
+    svg += text(
+        center_x - radius_x - 15,
+        center_y + 5,
+        "Commits",
+        14,
+        MUTED,
+        anchor="end"
     )
 
 
     # --------------------------------------------------------
-    # Exact counts
+    # Counts
     # --------------------------------------------------------
 
     svg += text(
         755,
-        330,
+        325,
         f"Commits ............... {commits}",
         15,
         GREEN
@@ -446,7 +403,7 @@ def generate_activity(user):
 
     svg += text(
         990,
-        330,
+        325,
         f"Code reviews .......... {reviews}",
         15,
         CYAN
@@ -454,7 +411,7 @@ def generate_activity(user):
 
     svg += text(
         755,
-        355,
+        352,
         f"Issues ................ {issues}",
         15,
         PURPLE
@@ -462,7 +419,7 @@ def generate_activity(user):
 
     svg += text(
         990,
-        355,
+        352,
         f"Pull requests ......... {pull_requests}",
         15,
         TEXT
@@ -473,7 +430,7 @@ def generate_activity(user):
     # OUTER BORDER
     # ========================================================
 
-    svg += f'''
+    svg += f"""
         <rect
             x="25"
             y="20"
@@ -484,15 +441,13 @@ def generate_activity(user):
             stroke="{BORDER}"
             stroke-width="2"
         />
-    '''
 
-    svg += """
     </svg>
     """
 
 
     # ========================================================
-    # WRITE FILE
+    # WRITE
     # ========================================================
 
     Path(OUTPUT).write_text(
