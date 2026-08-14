@@ -12,8 +12,8 @@ USERNAME = "NNavadeep05"
 
 OUTPUT = "stats.svg"
 
-WIDTH = 1200
-HEIGHT = 300
+WIDTH = 1400
+HEIGHT = 360
 
 BG = "#0D1117"
 TEXT = "#F0F6FC"
@@ -103,7 +103,7 @@ def get_contribution_data():
 
 
 # ============================================================
-# CALCULATE STREAKS
+# STREAK CALCULATIONS
 # ============================================================
 
 def calculate_streaks(calendar):
@@ -122,30 +122,35 @@ def calculate_streaks(calendar):
 
     days.sort(key=lambda x: x["date"])
 
+
     # --------------------------------------------------------
     # Current streak
     # --------------------------------------------------------
 
-    index = len(days) - 1
     current_streak = 0
+    index = len(days) - 1
 
     if days[index]["count"] == 0:
         index -= 1
 
-    while index >= 0 and days[index]["count"] > 0:
+    while index >= 0:
+
+        if days[index]["count"] <= 0:
+            break
 
         current_streak += 1
 
         if index == 0:
             break
 
-        previous = days[index - 1]["date"]
-        current = days[index]["date"]
+        current_day = days[index]["date"]
+        previous_day = days[index - 1]["date"]
 
-        if (current - previous).days != 1:
+        if (current_day - previous_day).days != 1:
             break
 
         index -= 1
+
 
     # --------------------------------------------------------
     # Longest streak
@@ -175,6 +180,7 @@ def calculate_streaks(calendar):
             previous_date = day["date"]
 
         else:
+
             running_streak = 0
             previous_date = None
 
@@ -182,7 +188,7 @@ def calculate_streaks(calendar):
 
 
 # ============================================================
-# SVG TEXT
+# SVG TEXT HELPER
 # ============================================================
 
 def svg_text(
@@ -196,15 +202,15 @@ def svg_text(
 ):
 
     return f'''
-    <text
-        x="{x}"
-        y="{y}"
-        fill="{color}"
-        font-family="monospace"
-        font-size="{size}px"
-        font-weight="{weight}"
-        text-anchor="{anchor}"
-    >{value}</text>
+        <text
+            x="{x}"
+            y="{y}"
+            fill="{color}"
+            font-family="monospace"
+            font-size="{size}px"
+            font-weight="{weight}"
+            text-anchor="{anchor}"
+        >{value}</text>
     '''
 
 
@@ -212,9 +218,17 @@ def svg_text(
 # GENERATE SVG
 # ============================================================
 
-def generate_svg(total, current, longest):
+def generate_svg(
+    total,
+    current,
+    longest
+):
 
     third = WIDTH / 3
+
+    first_center = third * 0.5
+    second_center = third * 1.5
+    third_center = third * 2.5
 
     svg = f'''<svg
         xmlns="http://www.w3.org/2000/svg"
@@ -223,22 +237,29 @@ def generate_svg(total, current, longest):
         viewBox="0 0 {WIDTH} {HEIGHT}"
     >
 
-        <!-- Background -->
+        <!-- ================================================= -->
+        <!-- BACKGROUND                                        -->
+        <!-- ================================================= -->
 
         <rect
+            x="0"
+            y="0"
             width="{WIDTH}"
             height="{HEIGHT}"
-            rx="10"
+            rx="12"
             fill="{BG}"
         />
 
-        <!-- Top accent -->
+
+        <!-- ================================================= -->
+        <!-- TOP ACCENT                                        -->
+        <!-- ================================================= -->
 
         <line
-            x1="50"
-            y1="20"
-            x2="{WIDTH - 50}"
-            y2="20"
+            x1="55"
+            y1="24"
+            x2="{WIDTH - 55}"
+            y2="24"
             stroke="{CYAN}"
             stroke-width="3"
         />
@@ -249,21 +270,29 @@ def generate_svg(total, current, longest):
         <!-- ================================================= -->
 
         {svg_text(
-            third * 0.5,
+            first_center,
             125,
             total,
-            64,
+            78,
             TEXT,
             "bold"
         )}
 
         {svg_text(
-            third * 0.5,
-            170,
+            first_center,
+            178,
             "TOTAL CONTRIBUTIONS",
-            20,
+            22,
             CYAN,
             "bold"
+        )}
+
+        {svg_text(
+            first_center,
+            216,
+            "LAST 12 MONTHS",
+            14,
+            MUTED
         )}
 
 
@@ -272,21 +301,29 @@ def generate_svg(total, current, longest):
         <!-- ================================================= -->
 
         {svg_text(
-            third * 1.5,
+            second_center,
             125,
             current,
-            64,
+            78,
             TEXT,
             "bold"
         )}
 
         {svg_text(
-            third * 1.5,
-            170,
+            second_center,
+            178,
             "CURRENT STREAK",
-            20,
+            22,
             GREEN,
             "bold"
+        )}
+
+        {svg_text(
+            second_center,
+            216,
+            "ACTIVE",
+            14,
+            MUTED
         )}
 
 
@@ -295,66 +332,79 @@ def generate_svg(total, current, longest):
         <!-- ================================================= -->
 
         {svg_text(
-            third * 2.5,
+            third_center,
             125,
             longest,
-            64,
+            78,
             TEXT,
             "bold"
         )}
 
         {svg_text(
-            third * 2.5,
-            170,
+            third_center,
+            178,
             "LONGEST STREAK",
-            20,
+            22,
             PURPLE,
             "bold"
         )}
 
+        {svg_text(
+            third_center,
+            216,
+            "ALL TIME",
+            14,
+            MUTED
+        )}
 
-        <!-- Vertical dividers -->
+
+        <!-- ================================================= -->
+        <!-- VERTICAL DIVIDERS                                -->
+        <!-- ================================================= -->
 
         <line
             x1="{third}"
-            y1="55"
+            y1="62"
             x2="{third}"
-            y2="205"
+            y2="245"
             stroke="{BORDER}"
             stroke-width="2"
         />
 
         <line
             x1="{third * 2}"
-            y1="55"
+            y1="62"
             x2="{third * 2}"
-            y2="205"
+            y2="245"
             stroke="{BORDER}"
             stroke-width="2"
         />
 
 
-        <!-- Bottom divider -->
+        <!-- ================================================= -->
+        <!-- BOTTOM DIVIDER                                   -->
+        <!-- ================================================= -->
 
         <line
-            x1="50"
-            y1="220"
-            x2="{WIDTH - 50}"
-            y2="220"
+            x1="55"
+            y1="270"
+            x2="{WIDTH - 55}"
+            y2="270"
             stroke="{BORDER}"
             stroke-width="2"
         />
 
 
-        <!-- Footer -->
+        <!-- ================================================= -->
+        <!-- FOOTER                                           -->
+        <!-- ================================================= -->
 
         {svg_text(
             WIDTH / 2,
-            260,
+            315,
             "@NNAvadeep05 • CONTRIBUTION.STATS",
-            14,
-            MUTED,
-            "normal"
+            15,
+            MUTED
         )}
 
     </svg>
