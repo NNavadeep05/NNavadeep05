@@ -9,21 +9,40 @@ import math
 # ============================================================
 
 WIDTH = 1400
-HEIGHT = 650
-
-VISUAL_X = 35
-VISUAL_Y = 110
-VISUAL_W = 500
-VISUAL_H = 500
-
-PARTICLE_X = 70
-PARTICLE_Y = 145
-PARTICLE_W = 430
-PARTICLE_H = 430
+HEIGHT = 800
 
 
 # ============================================================
-# COLORS — GITHUB DARK
+# PANEL GEOMETRY
+# ============================================================
+
+LEFT_X = 35
+LEFT_Y = 125
+LEFT_W = 500
+LEFT_H = 625
+
+RIGHT_X = 555
+RIGHT_Y = 125
+RIGHT_W = 810
+RIGHT_H = 625
+
+
+# ============================================================
+# PARTICLE FORMATION AREA
+# ============================================================
+
+# Images FORM inside this area.
+# Explosion is allowed to travel outside it.
+
+PARTICLE_X = LEFT_X + 35
+PARTICLE_Y = LEFT_Y + 55
+
+PARTICLE_W = LEFT_W - 70
+PARTICLE_H = LEFT_H - 100
+
+
+# ============================================================
+# COLORS
 # ============================================================
 
 BG = "#0D1117"
@@ -32,6 +51,7 @@ HEADER = "#161B22"
 
 BORDER = "#22D3EE"
 TEXT = "#F0F6FC"
+
 CYAN = "#22D3EE"
 PURPLE = "#A78BFA"
 
@@ -65,12 +85,15 @@ random.seed(42)
 def get_font(size, bold=False):
 
     if bold:
+
         candidates = [
             "C:/Windows/Fonts/consolab.ttf",
             "C:/Windows/Fonts/CascadiaMono-Bold.ttf",
             "C:/Windows/Fonts/DejaVuSansMono-Bold.ttf",
         ]
+
     else:
+
         candidates = [
             "C:/Windows/Fonts/consola.ttf",
             "C:/Windows/Fonts/CascadiaMono.ttf",
@@ -78,20 +101,21 @@ def get_font(size, bold=False):
         ]
 
     for path in candidates:
+
         if Path(path).exists():
             return ImageFont.truetype(path, size)
 
     return ImageFont.load_default()
 
 
-FONT_TITLE = get_font(22, True)
-FONT_SECTION = get_font(17, True)
+FONT_TITLE = get_font(24, True)
+FONT_SECTION = get_font(18, True)
 
-FONT_MAIN = get_font(20, False)
-FONT_MAIN_BOLD = get_font(20, True)
+FONT_MAIN = get_font(21, False)
+FONT_MAIN_BOLD = get_font(21, True)
 
-FONT_CURRENT = get_font(18, False)
-FONT_CURRENT_BOLD = get_font(18, True)
+FONT_CURRENT = get_font(19, False)
+FONT_CURRENT_BOLD = get_font(19, True)
 
 
 # ============================================================
@@ -100,7 +124,10 @@ FONT_CURRENT_BOLD = get_font(18, True)
 
 def ease_in_out(t):
 
-    t = max(0.0, min(1.0, t))
+    t = max(
+        0.0,
+        min(1.0, t)
+    )
 
     return t * t * (3.0 - 2.0 * t)
 
@@ -109,27 +136,51 @@ def ease_in_out(t):
 # LOAD IMAGE → PARTICLES
 # ============================================================
 
-def extract_particles(path, count=PARTICLE_COUNT):
+def extract_particles(
+    path,
+    count=PARTICLE_COUNT
+):
 
     img = Image.open(path).convert("RGBA")
 
     img.thumbnail(
-        (PARTICLE_W, PARTICLE_H),
+        (
+            PARTICLE_W,
+            PARTICLE_H
+        ),
         Image.Resampling.LANCZOS
     )
 
     canvas = Image.new(
         "RGBA",
-        (PARTICLE_W, PARTICLE_H),
-        (13, 17, 23, 255)
+        (
+            PARTICLE_W,
+            PARTICLE_H
+        ),
+        (
+            13,
+            17,
+            23,
+            255
+        )
     )
 
-    x_offset = (PARTICLE_W - img.width) // 2
-    y_offset = (PARTICLE_H - img.height) // 2
+    x_offset = (
+        PARTICLE_W -
+        img.width
+    ) // 2
+
+    y_offset = (
+        PARTICLE_H -
+        img.height
+    ) // 2
 
     canvas.alpha_composite(
         img,
-        (x_offset, y_offset)
+        (
+            x_offset,
+            y_offset
+        )
     )
 
     gray = canvas.convert("L")
@@ -140,16 +191,26 @@ def extract_particles(path, count=PARTICLE_COUNT):
 
         for x in range(PARTICLE_W):
 
-            value = gray.getpixel((x, y))
+            value = gray.getpixel(
+                (
+                    x,
+                    y
+                )
+            )
 
             if value < 45:
                 continue
 
-            probability = (value - 45) / 210.0
+            probability = (
+                value - 45
+            ) / 210.0
 
             probability = max(
                 0.05,
-                min(1.0, probability)
+                min(
+                    1.0,
+                    probability
+                )
             )
 
             if random.random() < probability:
@@ -189,7 +250,9 @@ def extract_particles(path, count=PARTICLE_COUNT):
 
 def load_all_targets():
 
-    folder = Path("assets/dynamic")
+    folder = Path(
+        "assets/dynamic"
+    )
 
     files = sorted(
         folder.glob("image*.png")
@@ -201,13 +264,17 @@ def load_all_targets():
             "No images found in assets/dynamic/"
         )
 
-    print("Images found:")
+    print(
+        "Images found:"
+    )
 
     targets = []
 
     for file in files:
 
-        print(f"  - {file.name}")
+        print(
+            f"  - {file.name}"
+        )
 
         targets.append(
             extract_particles(file)
@@ -224,7 +291,9 @@ def create_particle_colors():
 
     colors = []
 
-    for _ in range(PARTICLE_COUNT):
+    for _ in range(
+        PARTICLE_COUNT
+    ):
 
         if random.random() < 0.18:
 
@@ -257,7 +326,10 @@ def create_base():
 
     img = Image.new(
         "RGB",
-        (WIDTH, HEIGHT),
+        (
+            WIDTH,
+            HEIGHT
+        ),
         BG
     )
 
@@ -269,28 +341,51 @@ def create_base():
     # ========================================================
 
     draw.rounded_rectangle(
-        (30, 25, WIDTH - 30, 80),
+        (
+            30,
+            30,
+            WIDTH - 30,
+            90
+        ),
         radius=8,
         fill=HEADER
     )
 
     draw.ellipse(
-        (47, 44, 63, 60),
+        (
+            48,
+            51,
+            66,
+            69
+        ),
         fill=RED
     )
 
     draw.ellipse(
-        (72, 44, 88, 60),
+        (
+            76,
+            51,
+            94,
+            69
+        ),
         fill=YELLOW
     )
 
     draw.ellipse(
-        (97, 44, 113, 60),
+        (
+            104,
+            51,
+            122,
+            69
+        ),
         fill=GREEN
     )
 
     draw.text(
-        (135, 35),
+        (
+            145,
+            39
+        ),
         "profile.sh --live",
         font=FONT_TITLE,
         fill=CYAN
@@ -303,10 +398,10 @@ def create_base():
 
     draw.rounded_rectangle(
         (
-            VISUAL_X,
-            VISUAL_Y,
-            VISUAL_X + VISUAL_W,
-            VISUAL_Y + VISUAL_H
+            LEFT_X,
+            LEFT_Y,
+            LEFT_X + LEFT_W,
+            LEFT_Y + LEFT_H
         ),
         radius=6,
         outline=BORDER,
@@ -314,12 +409,20 @@ def create_base():
     )
 
     draw.rectangle(
-        (55, 101, 200, 125),
+        (
+            55,
+            116,
+            200,
+            142
+        ),
         fill=BG
     )
 
     draw.text(
-        (65, 105),
+        (
+            65,
+            119
+        ),
         "VISUAL.MAP",
         font=FONT_SECTION,
         fill=CYAN
@@ -329,11 +432,6 @@ def create_base():
     # ========================================================
     # RIGHT PANEL
     # ========================================================
-
-    RIGHT_X = 555
-    RIGHT_Y = 110
-    RIGHT_W = 810
-    RIGHT_H = 500
 
     draw.rounded_rectangle(
         (
@@ -348,12 +446,20 @@ def create_base():
     )
 
     draw.rectangle(
-        (575, 101, 730, 125),
+        (
+            575,
+            116,
+            730,
+            142
+        ),
         fill=BG
     )
 
     draw.text(
-        (585, 105),
+        (
+            585,
+            119
+        ),
         "SYSTEM.INFO",
         font=FONT_SECTION,
         fill=CYAN
@@ -365,25 +471,36 @@ def create_base():
     # ========================================================
 
     draw.rounded_rectangle(
-        (585, 145, 795, 185),
-        radius=20,
+        (
+            585,
+            165,
+            805,
+            207
+        ),
+        radius=21,
         fill=GREEN
     )
 
     badge_text = "@NNAvadeep05"
 
     bbox = draw.textbbox(
-        (0, 0),
+        (
+            0,
+            0
+        ),
         badge_text,
         font=FONT_MAIN_BOLD
     )
 
-    badge_w = bbox[2] - bbox[0]
+    badge_w = (
+        bbox[2] -
+        bbox[0]
+    )
 
     draw.text(
         (
-            690 - badge_w / 2,
-            153
+            695 - badge_w / 2,
+            173
         ),
         badge_text,
         font=FONT_MAIN_BOLD,
@@ -396,12 +513,20 @@ def create_base():
     # ========================================================
 
     draw.ellipse(
-        (822, 157, 838, 173),
+        (
+            830,
+            174,
+            846,
+            190
+        ),
         fill=RED
     )
 
     draw.text(
-        (850, 153),
+        (
+            858,
+            170
+        ),
         "LIVE",
         font=FONT_MAIN_BOLD,
         fill=RED
@@ -410,41 +535,53 @@ def create_base():
 
     # ========================================================
     # SYSTEM INFORMATION
-    #
-    # Main text remains 20px.
-    # Vertical spacing tightened.
     # ========================================================
 
     draw.text(
-        (585, 210),
+        (
+            585,
+            242
+        ),
         "Subject ......................... Navadeep Nandedapu",
         font=FONT_MAIN,
         fill=TEXT
     )
 
     draw.text(
-        (585, 246),
+        (
+            585,
+            282
+        ),
         "Domain .......................... AI / ML / Data",
         font=FONT_MAIN,
         fill=TEXT
     )
 
     draw.text(
-        (585, 282),
+        (
+            585,
+            322
+        ),
         "Origin .......................... Hyderabad, India",
         font=FONT_MAIN,
         fill=TEXT
     )
 
     draw.text(
-        (585, 318),
-        "Education ....................... Pursuing Bachelor's at IIT Kharagpur",
+        (
+            585,
+            362
+        ),
+        "Education ....................... B.Tech at IIT Kharagpur",
         font=FONT_MAIN,
         fill=TEXT
     )
 
     draw.text(
-        (585, 354),
+        (
+            585,
+            402
+        ),
         "Status .......................... Delusional",
         font=FONT_MAIN_BOLD,
         fill=PURPLE
@@ -456,21 +593,30 @@ def create_base():
     # ========================================================
 
     draw.text(
-        (585, 400),
+        (
+            585,
+            455
+        ),
         "Focus ........................... AI Systems",
         font=FONT_MAIN,
         fill=TEXT
     )
 
     draw.text(
-        (585, 436),
+        (
+            585,
+            495
+        ),
         "Stack ........................... C / C++ / Python / SQL",
         font=FONT_MAIN,
         fill=TEXT
     )
 
     draw.text(
-        (585, 472),
+        (
+            585,
+            535
+        ),
         "Currently ....................... Building + Researching",
         font=FONT_MAIN,
         fill=TEXT
@@ -479,32 +625,44 @@ def create_base():
 
     # ========================================================
     # CURRENTLY
-    #
-    # Moved upward so everything stays inside the panel.
     # ========================================================
 
     draw.text(
-        (585, 510),
+        (
+            585,
+            590
+        ),
         "CURRENTLY",
         font=FONT_CURRENT_BOLD,
         fill=CYAN
     )
 
     draw.line(
-        (690, 514, 1295, 514),
+        (
+            700,
+            595,
+            1295,
+            595
+        ),
         fill=BORDER,
         width=2
     )
 
     draw.text(
-        (585, 545),
+        (
+            585,
+            635
+        ),
         "Research ........................ Quantum Machine Learning",
         font=FONT_CURRENT,
         fill=TEXT
     )
 
     draw.text(
-        (585, 575),
+        (
+            585,
+            670
+        ),
         "Building ........................ AI / Data Projects",
         font=FONT_CURRENT,
         fill=TEXT
@@ -516,7 +674,12 @@ def create_base():
     # ========================================================
 
     draw.line(
-        (35, 625, 1365, 625),
+        (
+            35,
+            775,
+            1365,
+            775
+        ),
         fill=DARK_BORDER,
         width=3
     )
@@ -542,7 +705,14 @@ def create_explosion_positions():
         PARTICLE_H / 2
     )
 
-    for _ in range(PARTICLE_COUNT):
+    # --------------------------------------------------------
+    # Explosion deliberately extends beyond VISUAL.MAP.
+    # It is NOT clamped to the panel.
+    # --------------------------------------------------------
+
+    for _ in range(
+        PARTICLE_COUNT
+    ):
 
         angle = random.uniform(
             0,
@@ -551,11 +721,18 @@ def create_explosion_positions():
 
         radius = random.uniform(
             120,
-            430
+            560
         )
 
-        dx = math.cos(angle) * radius
-        dy = math.sin(angle) * radius
+        dx = (
+            math.cos(angle) *
+            radius
+        )
+
+        dy = (
+            math.sin(angle) *
+            radius
+        )
 
         positions.append(
             (
@@ -574,15 +751,59 @@ def create_explosion_positions():
 def draw_particles(
     image,
     positions,
-    colors
+    colors,
+    restrict_to_panel=False
 ):
 
     draw = ImageDraw.Draw(image)
 
-    for i, (x, y) in enumerate(positions):
+    # --------------------------------------------------------
+    # During FORM/HOLD:
+    # particles stay inside VISUAL.MAP.
+    #
+    # During EXPLOSION:
+    # restrict_to_panel=False, so particles can leak.
+    # --------------------------------------------------------
+
+    if restrict_to_panel:
+
+        min_x = LEFT_X + 2
+        max_x = LEFT_X + LEFT_W - 4
+
+        min_y = LEFT_Y + 25
+        max_y = LEFT_Y + LEFT_H - 4
+
+    else:
+
+        min_x = 0
+        max_x = WIDTH - PARTICLE_SIZE - 1
+
+        min_y = 0
+        max_y = HEIGHT - PARTICLE_SIZE - 1
+
+
+    for i, (x, y) in enumerate(
+        positions
+    ):
 
         x = int(x)
         y = int(y)
+
+        x = max(
+            min_x,
+            min(
+                max_x,
+                x
+            )
+        )
+
+        y = max(
+            min_y,
+            min(
+                max_y,
+                y
+            )
+        )
 
         color = colors[i]
 
@@ -607,14 +828,22 @@ def interpolate(
     progress
 ):
 
-    eased = ease_in_out(progress)
+    eased = ease_in_out(
+        progress
+    )
 
     return (
         start[0] +
-        (end[0] - start[0]) * eased,
+        (
+            end[0] -
+            start[0]
+        ) * eased,
 
         start[1] +
-        (end[1] - start[1]) * eased
+        (
+            end[1] -
+            start[1]
+        ) * eased
     )
 
 
@@ -632,9 +861,12 @@ def create_animation():
 
     frames = []
 
-    image_count = len(targets)
+    image_count = len(
+        targets
+    )
 
     print()
+
     print(
         f"Creating animation with {image_count} images..."
     )
@@ -652,18 +884,26 @@ def create_animation():
     # IMAGE CYCLES
     # ========================================================
 
-    for image_index in range(image_count):
+    for image_index in range(
+        image_count
+    ):
 
-        current = targets[image_index]
+        current = targets[
+            image_index
+        ]
 
-        explosion = create_explosion_positions()
+        explosion = (
+            create_explosion_positions()
+        )
 
 
         # ====================================================
         # REFORM
         # ====================================================
 
-        for frame_number in range(FORM_FRAMES):
+        for frame_number in range(
+            FORM_FRAMES
+        ):
 
             progress = (
                 frame_number /
@@ -674,7 +914,9 @@ def create_animation():
 
             positions = []
 
-            for i in range(PARTICLE_COUNT):
+            for i in range(
+                PARTICLE_COUNT
+            ):
 
                 positions.append(
                     interpolate(
@@ -687,34 +929,44 @@ def create_animation():
             draw_particles(
                 frame,
                 positions,
-                colors
+                colors,
+                restrict_to_panel=True
             )
 
-            frames.append(frame)
+            frames.append(
+                frame
+            )
 
 
         # ====================================================
         # HOLD
         # ====================================================
 
-        for _ in range(HOLD_FRAMES):
+        for _ in range(
+            HOLD_FRAMES
+        ):
 
             frame = base.copy()
 
             draw_particles(
                 frame,
                 current,
-                colors
+                colors,
+                restrict_to_panel=True
             )
 
-            frames.append(frame)
+            frames.append(
+                frame
+            )
 
 
         # ====================================================
         # EXPLODE
         # ====================================================
 
-        for frame_number in range(EXPLODE_FRAMES):
+        for frame_number in range(
+            EXPLODE_FRAMES
+        ):
 
             progress = (
                 frame_number /
@@ -725,7 +977,9 @@ def create_animation():
 
             positions = []
 
-            for i in range(PARTICLE_COUNT):
+            for i in range(
+                PARTICLE_COUNT
+            ):
 
                 positions.append(
                     interpolate(
@@ -738,10 +992,13 @@ def create_animation():
             draw_particles(
                 frame,
                 positions,
-                colors
+                colors,
+                restrict_to_panel=False
             )
 
-            frames.append(frame)
+            frames.append(
+                frame
+            )
 
 
         print(
@@ -753,19 +1010,24 @@ def create_animation():
     # SAVE GIF
     # ========================================================
 
-    output = Path("dark.gif")
+    output = Path(
+        "dark.gif"
+    )
 
     frames[0].save(
         output,
         save_all=True,
         append_images=frames[1:],
-        duration=int(1000 / FPS),
+        duration=int(
+            1000 / FPS
+        ),
         loop=0,
         optimize=True,
         disposal=2
     )
 
     print()
+
     print(
         f"Created {output}"
     )
@@ -784,4 +1046,5 @@ def create_animation():
 # ============================================================
 
 if __name__ == "__main__":
+
     create_animation()
