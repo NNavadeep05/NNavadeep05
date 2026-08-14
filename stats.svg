@@ -1,0 +1,165 @@
+<svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="1200"
+        height="180"
+        viewBox="0 0 1200 180"
+    >
+
+        <!-- Background -->
+
+        <rect
+            width="1200"
+            height="180"
+            rx="8"
+            fill="#0D1117"
+        />
+
+
+        <!-- Top accent -->
+
+        <line
+            x1="40"
+            y1="12"
+            x2="1160"
+            y2="12"
+            stroke="#22D3EE"
+            stroke-width="2"
+        />
+
+
+        <!-- ================================================= -->
+        <!-- TOTAL CONTRIBUTIONS                              -->
+        <!-- ================================================= -->
+
+        
+    <text
+        x="200.0"
+        y="78"
+        fill="#F0F6FC"
+        font-family="monospace"
+        font-size="38px"
+        font-weight="bold"
+        text-anchor="middle"
+    >195</text>
+    
+
+        
+    <text
+        x="200.0"
+        y="112"
+        fill="#22D3EE"
+        font-family="monospace"
+        font-size="15px"
+        font-weight="bold"
+        text-anchor="middle"
+    >TOTAL CONTRIBUTIONS</text>
+    
+
+
+        <!-- ================================================= -->
+        <!-- CURRENT STREAK                                   -->
+        <!-- ================================================= -->
+
+        
+    <text
+        x="600.0"
+        y="78"
+        fill="#F0F6FC"
+        font-family="monospace"
+        font-size="38px"
+        font-weight="bold"
+        text-anchor="middle"
+    >1</text>
+    
+
+        
+    <text
+        x="600.0"
+        y="112"
+        fill="#10B981"
+        font-family="monospace"
+        font-size="15px"
+        font-weight="bold"
+        text-anchor="middle"
+    >CURRENT STREAK</text>
+    
+
+
+        <!-- ================================================= -->
+        <!-- LONGEST STREAK                                   -->
+        <!-- ================================================= -->
+
+        
+    <text
+        x="1000.0"
+        y="78"
+        fill="#F0F6FC"
+        font-family="monospace"
+        font-size="38px"
+        font-weight="bold"
+        text-anchor="middle"
+    >6</text>
+    
+
+        
+    <text
+        x="1000.0"
+        y="112"
+        fill="#A78BFA"
+        font-family="monospace"
+        font-size="15px"
+        font-weight="bold"
+        text-anchor="middle"
+    >LONGEST STREAK</text>
+    
+
+
+        <!-- Dividers -->
+
+        <line
+            x1="400.0"
+            y1="42"
+            x2="400.0"
+            y2="135"
+            stroke="#30363D"
+            stroke-width="2"
+        />
+
+        <line
+            x1="800.0"
+            y1="42"
+            x2="800.0"
+            y2="135"
+            stroke="#30363D"
+            stroke-width="2"
+        />
+
+
+        <!-- Bottom accent -->
+
+        <line
+            x1="40"
+            y1="150"
+            x2="1160"
+            y2="150"
+            stroke="#30363D"
+            stroke-width="2"
+        />
+
+
+        <!-- Footer -->
+
+        
+    <text
+        x="600.0"
+        y="172"
+        fill="#8B949E"
+        font-family="monospace"
+        font-size="11px"
+        font-weight="normal"
+        text-anchor="middle"
+    >@NNAvadeep05 • CONTRIBUTION.STATS</text>
+    
+
+    </svg>
+    
