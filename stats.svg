@@ -1,26 +1,33 @@
 <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="1200"
-        height="300"
-        viewBox="0 0 1200 300"
+        width="1400"
+        height="360"
+        viewBox="0 0 1400 360"
     >
 
-        <!-- Background -->
+        <!-- ================================================= -->
+        <!-- BACKGROUND                                        -->
+        <!-- ================================================= -->
 
         <rect
-            width="1200"
-            height="300"
-            rx="10"
+            x="0"
+            y="0"
+            width="1400"
+            height="360"
+            rx="12"
             fill="#0D1117"
         />
 
-        <!-- Top accent -->
+
+        <!-- ================================================= -->
+        <!-- TOP ACCENT                                        -->
+        <!-- ================================================= -->
 
         <line
-            x1="50"
-            y1="20"
-            x2="1150"
-            y2="20"
+            x1="55"
+            y1="24"
+            x2="1345"
+            y2="24"
             stroke="#22D3EE"
             stroke-width="3"
         />
@@ -31,27 +38,39 @@
         <!-- ================================================= -->
 
         
-    <text
-        x="200.0"
-        y="125"
-        fill="#F0F6FC"
-        font-family="monospace"
-        font-size="64px"
-        font-weight="bold"
-        text-anchor="middle"
-    >196</text>
+        <text
+            x="233.33333333333334"
+            y="125"
+            fill="#F0F6FC"
+            font-family="monospace"
+            font-size="78px"
+            font-weight="bold"
+            text-anchor="middle"
+        >196</text>
     
 
         
-    <text
-        x="200.0"
-        y="170"
-        fill="#22D3EE"
-        font-family="monospace"
-        font-size="20px"
-        font-weight="bold"
-        text-anchor="middle"
-    >TOTAL CONTRIBUTIONS</text>
+        <text
+            x="233.33333333333334"
+            y="178"
+            fill="#22D3EE"
+            font-family="monospace"
+            font-size="22px"
+            font-weight="bold"
+            text-anchor="middle"
+        >TOTAL CONTRIBUTIONS</text>
+    
+
+        
+        <text
+            x="233.33333333333334"
+            y="216"
+            fill="#8B949E"
+            font-family="monospace"
+            font-size="14px"
+            font-weight="normal"
+            text-anchor="middle"
+        >LAST 12 MONTHS</text>
     
 
 
@@ -60,27 +79,39 @@
         <!-- ================================================= -->
 
         
-    <text
-        x="600.0"
-        y="125"
-        fill="#F0F6FC"
-        font-family="monospace"
-        font-size="64px"
-        font-weight="bold"
-        text-anchor="middle"
-    >1</text>
+        <text
+            x="700.0"
+            y="125"
+            fill="#F0F6FC"
+            font-family="monospace"
+            font-size="78px"
+            font-weight="bold"
+            text-anchor="middle"
+        >1</text>
     
 
         
-    <text
-        x="600.0"
-        y="170"
-        fill="#10B981"
-        font-family="monospace"
-        font-size="20px"
-        font-weight="bold"
-        text-anchor="middle"
-    >CURRENT STREAK</text>
+        <text
+            x="700.0"
+            y="178"
+            fill="#10B981"
+            font-family="monospace"
+            font-size="22px"
+            font-weight="bold"
+            text-anchor="middle"
+        >CURRENT STREAK</text>
+    
+
+        
+        <text
+            x="700.0"
+            y="216"
+            fill="#8B949E"
+            font-family="monospace"
+            font-size="14px"
+            font-weight="normal"
+            text-anchor="middle"
+        >ACTIVE</text>
     
 
 
@@ -89,75 +120,93 @@
         <!-- ================================================= -->
 
         
-    <text
-        x="1000.0"
-        y="125"
-        fill="#F0F6FC"
-        font-family="monospace"
-        font-size="64px"
-        font-weight="bold"
-        text-anchor="middle"
-    >6</text>
+        <text
+            x="1166.6666666666667"
+            y="125"
+            fill="#F0F6FC"
+            font-family="monospace"
+            font-size="78px"
+            font-weight="bold"
+            text-anchor="middle"
+        >6</text>
     
 
         
-    <text
-        x="1000.0"
-        y="170"
-        fill="#A78BFA"
-        font-family="monospace"
-        font-size="20px"
-        font-weight="bold"
-        text-anchor="middle"
-    >LONGEST STREAK</text>
+        <text
+            x="1166.6666666666667"
+            y="178"
+            fill="#A78BFA"
+            font-family="monospace"
+            font-size="22px"
+            font-weight="bold"
+            text-anchor="middle"
+        >LONGEST STREAK</text>
+    
+
+        
+        <text
+            x="1166.6666666666667"
+            y="216"
+            fill="#8B949E"
+            font-family="monospace"
+            font-size="14px"
+            font-weight="normal"
+            text-anchor="middle"
+        >ALL TIME</text>
     
 
 
-        <!-- Vertical dividers -->
+        <!-- ================================================= -->
+        <!-- VERTICAL DIVIDERS                                -->
+        <!-- ================================================= -->
 
         <line
-            x1="400.0"
-            y1="55"
-            x2="400.0"
-            y2="205"
+            x1="466.6666666666667"
+            y1="62"
+            x2="466.6666666666667"
+            y2="245"
             stroke="#30363D"
             stroke-width="2"
         />
 
         <line
-            x1="800.0"
-            y1="55"
-            x2="800.0"
-            y2="205"
+            x1="933.3333333333334"
+            y1="62"
+            x2="933.3333333333334"
+            y2="245"
             stroke="#30363D"
             stroke-width="2"
         />
 
 
-        <!-- Bottom divider -->
+        <!-- ================================================= -->
+        <!-- BOTTOM DIVIDER                                   -->
+        <!-- ================================================= -->
 
         <line
-            x1="50"
-            y1="220"
-            x2="1150"
-            y2="220"
+            x1="55"
+            y1="270"
+            x2="1345"
+            y2="270"
             stroke="#30363D"
             stroke-width="2"
         />
 
 
-        <!-- Footer -->
+        <!-- ================================================= -->
+        <!-- FOOTER                                           -->
+        <!-- ================================================= -->
 
         
-    <text
-        x="600.0"
-        y="260"
-        fill="#8B949E"
-        font-family="monospace"
-        font-size="14px"
-        font-weight="normal"
-        text-anchor="middle"
-    >@NNAvadeep05 • CONTRIBUTION.STATS</text>
+        <text
+            x="700.0"
+            y="315"
+            fill="#8B949E"
+            font-family="monospace"
+            font-size="15px"
+            font-weight="normal"
+            text-anchor="middle"
+        >@NNAvadeep05 • CONTRIBUTION.STATS</text>
     
 
     </svg>
