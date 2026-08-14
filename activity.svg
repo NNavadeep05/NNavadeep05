@@ -1,0 +1,270 @@
+
+    <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="1400"
+        height="430"
+        viewBox="0 0 1400 430"
+    >
+
+        <rect
+            x="0"
+            y="0"
+            width="1400"
+            height="430"
+            rx="10"
+            fill="#0D1117"
+        />
+
+        
+        <text
+            x="55"
+            y="48"
+            fill="#F0F6FC"
+            font-family="monospace"
+            font-size="24px"
+            font-weight="bold"
+            text-anchor="start"
+        >Activity overview</text>
+    
+
+        <line
+            x1="45"
+            y1="70"
+            x2="1355"
+            y2="70"
+            stroke="#30363D"
+            stroke-width="2"
+        />
+
+        <line
+            x1="700"
+            y1="95"
+            x2="700"
+            y2="370"
+            stroke="#30363D"
+            stroke-width="2"
+        />
+
+
+        <!-- LEFT SIDE -->
+
+        
+        <text
+            x="70"
+            y="110"
+            fill="#22D3EE"
+            font-family="monospace"
+            font-size="18px"
+            font-weight="bold"
+            text-anchor="start"
+        >Contributed to</text>
+    
+    
+        <text
+            x="90"
+            y="150"
+            fill="#F0F6FC"
+            font-family="monospace"
+            font-size="16px"
+            font-weight="normal"
+            text-anchor="start"
+        >• NNavadeep05/E-Commerce-Analytics</text>
+    
+        <text
+            x="90"
+            y="182"
+            fill="#F0F6FC"
+            font-family="monospace"
+            font-size="16px"
+            font-weight="normal"
+            text-anchor="start"
+        >• NNavadeep05/StockSight-Stock-Price-Forecastin...</text>
+    
+        <text
+            x="90"
+            y="214"
+            fill="#F0F6FC"
+            font-family="monospace"
+            font-size="16px"
+            font-weight="normal"
+            text-anchor="start"
+        >• NNavadeep05/HENS-Astar</text>
+    
+        <text
+            x="90"
+            y="246"
+            fill="#F0F6FC"
+            font-family="monospace"
+            font-size="16px"
+            font-weight="normal"
+            text-anchor="start"
+        >• NNavadeep05/NNavadeep05.github.io</text>
+    
+        <text
+            x="90"
+            y="278"
+            fill="#F0F6FC"
+            font-family="monospace"
+            font-size="16px"
+            font-weight="normal"
+            text-anchor="start"
+        >• NNavadeep05/SQL-OpenEnv</text>
+    
+        <text
+            x="90"
+            y="310"
+            fill="#F0F6FC"
+            font-family="monospace"
+            font-size="16px"
+            font-weight="normal"
+            text-anchor="start"
+        >• NNavadeep05/Darwix-Ai-Empathy-Engine</text>
+    
+        <text
+            x="90"
+            y="342"
+            fill="#F0F6FC"
+            font-family="monospace"
+            font-size="16px"
+            font-weight="normal"
+            text-anchor="start"
+        >• NNavadeep05/Rubiks-Cube-Solver-Cpp</text>
+    
+        <text
+            x="90"
+            y="379"
+            fill="#8B949E"
+            font-family="monospace"
+            font-size="15px"
+            font-weight="normal"
+            text-anchor="start"
+        >and more repositories</text>
+    
+        <text
+            x="755"
+            y="110"
+            fill="#A78BFA"
+            font-family="monospace"
+            font-size="18px"
+            font-weight="bold"
+            text-anchor="start"
+        >Contribution breakdown</text>
+    
+        <line
+            x1="900"
+            y1="225"
+            x2="1170"
+            y2="225"
+            stroke="#10B981"
+            stroke-width="2"
+        />
+
+        <line
+            x1="1035"
+            y1="120"
+            x2="1035"
+            y2="330"
+            stroke="#10B981"
+            stroke-width="2"
+        />
+
+        <circle
+            cx="1035"
+            cy="225"
+            r="6"
+            fill="#10B981"
+        />
+    
+        <text
+            x="1035"
+            y="105"
+            fill="#8B949E"
+            font-family="monospace"
+            font-size="14px"
+            font-weight="normal"
+            text-anchor="middle"
+        >Code review</text>
+    
+        <text
+            x="1185"
+            y="230"
+            fill="#8B949E"
+            font-family="monospace"
+            font-size="14px"
+            font-weight="normal"
+            text-anchor="start"
+        >Issues</text>
+    
+        <text
+            x="1035"
+            y="358"
+            fill="#8B949E"
+            font-family="monospace"
+            font-size="14px"
+            font-weight="normal"
+            text-anchor="middle"
+        >Pull requests</text>
+    
+        <text
+            x="885"
+            y="230"
+            fill="#8B949E"
+            font-family="monospace"
+            font-size="14px"
+            font-weight="normal"
+            text-anchor="end"
+        >Commits</text>
+    
+        <text
+            x="755"
+            y="325"
+            fill="#10B981"
+            font-family="monospace"
+            font-size="15px"
+            font-weight="normal"
+            text-anchor="start"
+        >Commits ............... 191</text>
+    
+        <text
+            x="990"
+            y="325"
+            fill="#22D3EE"
+            font-family="monospace"
+            font-size="15px"
+            font-weight="normal"
+            text-anchor="start"
+        >Code reviews .......... 0</text>
+    
+        <text
+            x="755"
+            y="352"
+            fill="#A78BFA"
+            font-family="monospace"
+            font-size="15px"
+            font-weight="normal"
+            text-anchor="start"
+        >Issues ................ 0</text>
+    
+        <text
+            x="990"
+            y="352"
+            fill="#F0F6FC"
+            font-family="monospace"
+            font-size="15px"
+            font-weight="normal"
+            text-anchor="start"
+        >Pull requests ......... 0</text>
+    
+        <rect
+            x="25"
+            y="20"
+            width="1350"
+            height="390"
+            rx="10"
+            fill="none"
+            stroke="#30363D"
+            stroke-width="2"
+        />
+
+    </svg>
+    
