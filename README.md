@@ -42,3 +42,9 @@
     🌐 Portfolio
   </a>
 </p>
+
+<br>
+
+<p align="center">
+  <img src="./activity.svg" width="100%" />
+</p>
