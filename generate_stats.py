@@ -13,7 +13,7 @@ USERNAME = "NNavadeep05"
 OUTPUT = "stats.svg"
 
 WIDTH = 1200
-HEIGHT = 180
+HEIGHT = 300
 
 BG = "#0D1117"
 TEXT = "#F0F6FC"
@@ -22,6 +22,7 @@ MUTED = "#8B949E"
 CYAN = "#22D3EE"
 PURPLE = "#A78BFA"
 GREEN = "#10B981"
+BORDER = "#30363D"
 
 
 # ============================================================
@@ -59,7 +60,6 @@ def get_contribution_data():
     """
 
     now = datetime.utcnow()
-
     start = now - timedelta(days=365)
 
     variables = {
@@ -85,13 +85,11 @@ def get_contribution_data():
     )
 
     with urllib.request.urlopen(request) as response:
-
         data = json.loads(
             response.read().decode("utf-8")
         )
 
     if "errors" in data:
-
         raise RuntimeError(
             json.dumps(
                 data["errors"],
@@ -113,9 +111,7 @@ def calculate_streaks(calendar):
     days = []
 
     for week in calendar["weeks"]:
-
         for day in week["contributionDays"]:
-
             days.append({
                 "date": datetime.strptime(
                     day["date"],
@@ -124,55 +120,32 @@ def calculate_streaks(calendar):
                 "count": day["contributionCount"]
             })
 
-
-    days.sort(
-        key=lambda x: x["date"]
-    )
-
+    days.sort(key=lambda x: x["date"])
 
     # --------------------------------------------------------
     # Current streak
     # --------------------------------------------------------
 
-    today = days[-1]["date"]
-
+    index = len(days) - 1
     current_streak = 0
 
-    index = len(days) - 1
-
-    # If today has no contribution, allow yesterday
-    # to be the beginning of the current streak.
-
     if days[index]["count"] == 0:
-
         index -= 1
 
-        if index >= 0:
-            today = days[index]["date"]
+    while index >= 0 and days[index]["count"] > 0:
 
+        current_streak += 1
 
-    while index >= 0:
-
-        if days[index]["count"] <= 0:
+        if index == 0:
             break
 
-        if current_streak == 0:
+        previous = days[index - 1]["date"]
+        current = days[index]["date"]
 
-            current_streak = 1
-
-        else:
-
-            previous = days[index + 1]["date"]
-
-            current = days[index]["date"]
-
-            if (previous - current).days != 1:
-                break
-
-            current_streak += 1
+        if (current - previous).days != 1:
+            break
 
         index -= 1
-
 
     # --------------------------------------------------------
     # Longest streak
@@ -180,7 +153,6 @@ def calculate_streaks(calendar):
 
     longest_streak = 0
     running_streak = 0
-
     previous_date = None
 
     for day in days:
@@ -192,7 +164,6 @@ def calculate_streaks(calendar):
                 and (day["date"] - previous_date).days == 1
             ):
                 running_streak += 1
-
             else:
                 running_streak = 1
 
@@ -204,15 +175,10 @@ def calculate_streaks(calendar):
             previous_date = day["date"]
 
         else:
-
             running_streak = 0
             previous_date = None
 
-
-    return (
-        current_streak,
-        longest_streak
-    )
+    return current_streak, longest_streak
 
 
 # ============================================================
@@ -246,11 +212,7 @@ def svg_text(
 # GENERATE SVG
 # ============================================================
 
-def generate_svg(
-    total,
-    current,
-    longest
-):
+def generate_svg(total, current, longest):
 
     third = WIDTH / 3
 
@@ -266,20 +228,19 @@ def generate_svg(
         <rect
             width="{WIDTH}"
             height="{HEIGHT}"
-            rx="8"
+            rx="10"
             fill="{BG}"
         />
-
 
         <!-- Top accent -->
 
         <line
-            x1="40"
-            y1="12"
-            x2="{WIDTH - 40}"
-            y2="12"
+            x1="50"
+            y1="20"
+            x2="{WIDTH - 50}"
+            y2="20"
             stroke="{CYAN}"
-            stroke-width="2"
+            stroke-width="3"
         />
 
 
@@ -289,18 +250,18 @@ def generate_svg(
 
         {svg_text(
             third * 0.5,
-            78,
+            125,
             total,
-            38,
+            64,
             TEXT,
             "bold"
         )}
 
         {svg_text(
             third * 0.5,
-            112,
+            170,
             "TOTAL CONTRIBUTIONS",
-            15,
+            20,
             CYAN,
             "bold"
         )}
@@ -312,18 +273,18 @@ def generate_svg(
 
         {svg_text(
             third * 1.5,
-            78,
+            125,
             current,
-            38,
+            64,
             TEXT,
             "bold"
         )}
 
         {svg_text(
             third * 1.5,
-            112,
+            170,
             "CURRENT STREAK",
-            15,
+            20,
             GREEN,
             "bold"
         )}
@@ -335,52 +296,52 @@ def generate_svg(
 
         {svg_text(
             third * 2.5,
-            78,
+            125,
             longest,
-            38,
+            64,
             TEXT,
             "bold"
         )}
 
         {svg_text(
             third * 2.5,
-            112,
+            170,
             "LONGEST STREAK",
-            15,
+            20,
             PURPLE,
             "bold"
         )}
 
 
-        <!-- Dividers -->
+        <!-- Vertical dividers -->
 
         <line
             x1="{third}"
-            y1="42"
+            y1="55"
             x2="{third}"
-            y2="135"
-            stroke="#30363D"
+            y2="205"
+            stroke="{BORDER}"
             stroke-width="2"
         />
 
         <line
             x1="{third * 2}"
-            y1="42"
+            y1="55"
             x2="{third * 2}"
-            y2="135"
-            stroke="#30363D"
+            y2="205"
+            stroke="{BORDER}"
             stroke-width="2"
         />
 
 
-        <!-- Bottom accent -->
+        <!-- Bottom divider -->
 
         <line
-            x1="40"
-            y1="150"
-            x2="{WIDTH - 40}"
-            y2="150"
-            stroke="#30363D"
+            x1="50"
+            y1="220"
+            x2="{WIDTH - 50}"
+            y2="220"
+            stroke="{BORDER}"
             stroke-width="2"
         />
 
@@ -389,9 +350,9 @@ def generate_svg(
 
         {svg_text(
             WIDTH / 2,
-            172,
+            260,
             "@NNAvadeep05 • CONTRIBUTION.STATS",
-            11,
+            14,
             MUTED,
             "normal"
         )}
@@ -404,7 +365,6 @@ def generate_svg(
         "w",
         encoding="utf-8"
     ) as file:
-
         file.write(svg)
 
 
@@ -425,17 +385,9 @@ def main():
     )
 
     print()
-    print(
-        f"Total contributions : {total}"
-    )
-
-    print(
-        f"Current streak      : {current}"
-    )
-
-    print(
-        f"Longest streak      : {longest}"
-    )
+    print(f"Total contributions : {total}")
+    print(f"Current streak      : {current}")
+    print(f"Longest streak      : {longest}")
 
     generate_svg(
         total,
@@ -444,9 +396,7 @@ def main():
     )
 
     print()
-    print(
-        f"Created {OUTPUT}"
-    )
+    print(f"Created {OUTPUT}")
 
 
 if __name__ == "__main__":
