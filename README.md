@@ -7,10 +7,7 @@
 <h2 align="center">CONTRIBUTION.STATS</h2>
 
 <p align="center">
-  <img
-    src="https://streak-stats.demolab.com/?user=NNavadeep05&theme=dark&background=0D1117&border=0D1117&ring=10B981&fire=A78BFA&currStreakLabel=22D3EE&sideLabels=A78BFA&currStreakNum=F0F6FC&sideNums=F0F6FC&dates=4B5563"
-    width="100%"
-  />
+  <img src="./stats.svg" width="100%" />
 </p>
 
 <br>
