@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./dark.svg" width="100%" />
+  <img src="./dark.gif" width="100%" />
 </p>
 
 <br>
@@ -8,7 +8,7 @@
 
 <p align="center">
   <img
-    src="https://github-readme-streak-stats.herokuapp.com/?user=NNavadeep05&theme=dark&background=0D1117&border=0D1117&ring=10B981&fire=A78BFA&currStreakLabel=22D3EE&sideLabels=A78BFA&currStreakNum=F0F6FC&sideNums=F0F6FC&dates=4B5563"
+    src="https://streak-stats.demolab.com/?user=NNavadeep05&theme=dark&background=0D1117&border=0D1117&ring=10B981&fire=A78BFA&currStreakLabel=22D3EE&sideLabels=A78BFA&currStreakNum=F0F6FC&sideNums=F0F6FC&dates=4B5563"
     width="100%"
   />
 </p>
