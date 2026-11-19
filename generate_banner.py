@@ -66,11 +66,11 @@ DARK_BORDER = "#30363D"
 # ANIMATION SETTINGS
 # ============================================================
 
-FPS = 12
+FPS = 20
 
-FORM_FRAMES = 21
-HOLD_FRAMES = 18
-EXPLODE_FRAMES = 15
+FORM_FRAMES = 30
+HOLD_FRAMES = 30
+EXPLODE_FRAMES = 24
 
 PARTICLE_COUNT = 2200
 PARTICLE_SIZE = 2
@@ -706,9 +706,12 @@ def create_explosion_positions():
     )
 
     # --------------------------------------------------------
-    # Explosion deliberately extends beyond VISUAL.MAP.
-    # It is NOT clamped to the panel.
+    # Scatter stays inside VISUAL.MAP so particles never
+    # need clamping (clamping piled them up on the border).
     # --------------------------------------------------------
+
+    half_w = PARTICLE_W / 2
+    half_h = PARTICLE_H / 2
 
     for _ in range(
         PARTICLE_COUNT
@@ -719,25 +722,15 @@ def create_explosion_positions():
             math.pi * 2
         )
 
-        radius = random.uniform(
-            120,
-            560
-        )
-
-        dx = (
-            math.cos(angle) *
-            radius
-        )
-
-        dy = (
-            math.sin(angle) *
-            radius
+        # sqrt gives an even spread across the ellipse
+        radius = math.sqrt(
+            random.uniform(0.15, 1.0)
         )
 
         positions.append(
             (
-                center_x + dx,
-                center_y + dy
+                center_x + math.cos(angle) * radius * half_w,
+                center_y + math.sin(angle) * radius * half_h
             )
         )
 
@@ -859,6 +852,20 @@ def create_animation():
 
     base = create_base()
 
+    # One shared palette for every frame: keeps colours stable
+    # between frames and stores each frame at 1 byte per pixel
+    # (full RGB frames ran out of memory).
+    palette_ref = base.copy()
+    draw_particles(
+        palette_ref,
+        [(PARTICLE_X + i % 40, PARTICLE_Y + i // 40) for i in range(PARTICLE_COUNT)],
+        colors
+    )
+    palette_ref = palette_ref.quantize(colors=64, dither=Image.Dither.NONE)
+
+    def to_palette(frame):
+        return frame.quantize(palette=palette_ref, dither=Image.Dither.NONE)
+
     frames = []
 
     image_count = len(
@@ -884,6 +891,17 @@ def create_animation():
     # IMAGE CYCLES
     # ========================================================
 
+    # One scatter per transition. Image N explodes into
+    # scatters[N + 1] and image N + 1 forms from that same
+    # scatter, so there is no jump between images. The last
+    # image explodes into scatters[0], which the first image
+    # forms from, so the GIF loops seamlessly.
+
+    scatters = [
+        create_explosion_positions()
+        for _ in range(image_count)
+    ]
+
     for image_index in range(
         image_count
     ):
@@ -892,9 +910,13 @@ def create_animation():
             image_index
         ]
 
-        explosion = (
-            create_explosion_positions()
-        )
+        formation = scatters[
+            image_index
+        ]
+
+        explosion = scatters[
+            (image_index + 1) % image_count
+        ]
 
 
         # ====================================================
@@ -905,9 +927,11 @@ def create_animation():
             FORM_FRAMES
         ):
 
+            # starts one step in: frame 0 would repeat the
+            # previous image's final explode frame
             progress = (
-                frame_number /
-                (FORM_FRAMES - 1)
+                (frame_number + 1) /
+                FORM_FRAMES
             )
 
             frame = base.copy()
@@ -920,7 +944,7 @@ def create_animation():
 
                 positions.append(
                     interpolate(
-                        explosion[i],
+                        formation[i],
                         current[i],
                         progress
                     )
@@ -934,7 +958,7 @@ def create_animation():
             )
 
             frames.append(
-                frame
+                to_palette(frame)
             )
 
 
@@ -956,7 +980,7 @@ def create_animation():
             )
 
             frames.append(
-                frame
+                to_palette(frame)
             )
 
 
@@ -997,7 +1021,7 @@ def create_animation():
             )
 
             frames.append(
-                frame
+                to_palette(frame)
             )
 
 
