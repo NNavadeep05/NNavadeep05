@@ -66,11 +66,11 @@ DARK_BORDER = "#30363D"
 # ANIMATION SETTINGS
 # ============================================================
 
-FPS = 24
+FPS = 12
 
-FORM_FRAMES = 42
-HOLD_FRAMES = 36
-EXPLODE_FRAMES = 30
+FORM_FRAMES = 21
+HOLD_FRAMES = 18
+EXPLODE_FRAMES = 15
 
 PARTICLE_COUNT = 2200
 PARTICLE_SIZE = 2
@@ -481,7 +481,7 @@ def create_base():
         fill=GREEN
     )
 
-    badge_text = "@NNAvadeep05"
+    badge_text = "@NNavadeep05"
 
     bbox = draw.textbbox(
         (

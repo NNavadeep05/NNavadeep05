@@ -402,7 +402,7 @@ def generate_svg(
         {svg_text(
             WIDTH / 2,
             315,
-            "@NNAvadeep05 • CONTRIBUTION.STATS",
+            "@NNavadeep05 • CONTRIBUTION.STATS",
             15,
             MUTED
         )}
